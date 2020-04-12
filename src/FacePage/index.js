@@ -32,13 +32,15 @@ class FacePage extends Component {
                     const dims = faceapi.matchDimensions(this.props.canvas.current, this.props.video.current, true);
                     const resizedResult = faceapi.resizeResults(result, dims);
                     // faceapi.draw.drawDetections(this.props.canvas.current, resizedResult);
-                    // faceapi.draw.drawFaceLandmarks(this.props.canvas.current, resizedResult);
-                    // faceapi.draw.drawFaceExpressions(this.props.canvas.current,resizedResult);
+                    faceapi.draw.drawFaceLandmarks(this.props.canvas.current, resizedResult);
+                    faceapi.draw.drawFaceExpressions(this.props.canvas.current,resizedResult);
+                    // faceapi.draw.drawDetections(this.props.canvas.current,resizedResult);
+                    console.log("detectando => ", resizedResult)
 
 
                     const age = resizedResult.age;
                     const interpolatedAge = interpolateAgePredictions(age);
-                    const gender = `genero ${resizedResult.gender}`;
+                    // const gender = `genero ${resizedResult.gender}`;
                     const expressions = resizedResult.expressions;
                     const maxValue = Math.max(...Object.values(expressions));
                     const emotion = Object.keys(expressions).filter(
@@ -69,21 +71,27 @@ class FacePage extends Component {
 
                     //ingresasr texto dentro del canvas
                     canvasElement.font="15px Arial";
-                    let positionX=result.landmarks.positions[3].x+40,
+                    let positionX=result.landmarks.positions[3].x+80,
                         positionY=result.landmarks.positions[12].y- -80;
-                    canvasElement.strokeText( (result.gender)==="male" ? "Hombre" :"Mujer", 
+                        canvasElement.strokeText( (result.gender)==="male" ? "Hombre" :"Mujer", 
                         positionX,positionY ); 
 
 
                     canvasElement.font="15px Arial";
+                    let positionX2=result.landmarks.positions[3].x+140,
+                        positionY2=result.landmarks.positions[12].y- -80;
+                    canvasElement.strokeText( (result.genderProbability), 
+                        positionX2,positionY2 ); 
+
+                    canvasElement.font="15px Arial";
                     
-                    let positioX=result.landmarks.positions[3].x+15,
+                    let positioX=result.landmarks.positions[3].x+80,
                     positioY=result.landmarks.positions[12].y - -65;
                     canvasElement.strokeText( (emotionPro), 
                     positioX,positioY ); 
 
 
-                    let positiX=result.landmarks.positions[3].x+25,
+                    let positiX=result.landmarks.positions[3].x+80,
                     positiY=result.landmarks.positions[12].y - -55;
                     canvasElement.strokeText( (edadPro), 
                     positiX,positiY ); 
