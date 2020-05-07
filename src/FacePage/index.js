@@ -32,7 +32,7 @@ class FacePage extends Component {
                     const dims = faceapi.matchDimensions(this.props.canvas.current, this.props.video.current, true);
                     const resizedResult = faceapi.resizeResults(result, dims);
                     // faceapi.draw.drawDetections(this.props.canvas.current, resizedResult);
-                    faceapi.draw.drawFaceLandmarks(this.props.canvas.current, resizedResult);
+                    // faceapi.draw.drawFaceLandmarks(this.props.canvas.current, resizedResult);
                     faceapi.draw.drawFaceExpressions(this.props.canvas.current,resizedResult);
                     // faceapi.draw.drawDetections(this.props.canvas.current,resizedResult);
                     console.log("detectando => ", resizedResult)
